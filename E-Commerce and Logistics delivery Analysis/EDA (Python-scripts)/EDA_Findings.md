@@ -100,3 +100,78 @@ across shipping modes?
 ### Methodology Note
 Delivery rates use KPI-eligible unique orders.
 Associations do not establish causation.
+
+## 12. Year-wise Financial Performance Analysis
+
+The analysis uses recorded order-item sales values.
+These figures are not independently verified net revenue.
+
+| Year | Recorded Sales | All Orders | Avg Sales/Order | Item Lines/Order | Negative Benefit Rate |
+|------|---------------:|-----------:|----------------:|-----------------:|----------------------:|
+| 2015 | 10,859,735.36 | 20,904 | 530.70 | 3.00 | 18.71% |
+| 2016 | 10,838,544.62 | 20,859 | 530.57 | 3.00 | 18.86% |
+| 2017 | 10,396,867.83 | 21,866 | 485.47 | 2.43 | 18.50% |
+
+### Key Findings
+
+1. Recorded sales decreased by 4.08% in 2017
+   compared with 2016.
+
+2. Average recorded sales per order declined
+   from 530.57 in 2016 to 485.47 in 2017.
+
+3. Order volume increased by 4.83% in 2017,
+   while recorded sales decreased.
+
+4. Item lines per order declined from approximately
+   3.00 to 2.43.
+
+5. Negative-benefit record rates remained
+   between 18.50% and 18.86%.
+
+### Important Limitations
+
+- Sales values are based on Order Item Total.
+- Some orders were excluded from sales calculations.
+- Benefit per order varies within many orders.
+- Negative-benefit rates are record-level indicators.
+- Currency, refunds and accounting revenue require
+  independent verification.
+
+## 13. Regional Sales Analysis
+
+### Findings
+
+- Western Europe has unusually low recorded
+  sales and order coverage in 2016.
+- Central America has no available 2016 records.
+- Oceania recorded lower sales in 2017 than 2016.
+- Southeast Asia also recorded lower sales in 2017.
+- West of USA records appear only in 2016.
+
+### Data Quality Notes
+
+Missing region-year combinations are marked N/A,
+not zero sales.
+
+Regional comparisons may be affected by changes
+in data coverage and order-item granularity.
+
+Regional changes should not automatically be
+interpreted as business growth or decline.
+
+## 14. Financial Business Problem
+
+How can the business improve recorded sales per
+order and delivery reliability while investigating
+financial performance and regional data quality?
+
+### Recommendations
+
+1. Monitor average sales per order every month.
+2. Investigate the reduction in item lines per order.
+3. Analyze product categories with negative benefit.
+4. Review shipping performance and delivery delays.
+5. Validate regional data coverage before comparison.
+6. Investigate changes in customer purchasing patterns.
+7. Verify sales and profitability metric definitions.
