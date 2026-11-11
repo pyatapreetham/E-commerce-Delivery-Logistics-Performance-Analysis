@@ -175,3 +175,71 @@ financial performance and regional data quality?
 5. Validate regional data coverage before comparison.
 6. Investigate changes in customer purchasing patterns.
 7. Verify sales and profitability metric definitions.
+
+### 15. Delivery Delay Analysis – Key Findings
+
+The delivery delay analysis was conducted using 28,965 unique orders.
+
+The analysis identified 16,633 late orders, representing an overall late delivery rate of 57.42%.
+
+Late orders had an average processing duration of 4.07 days, compared to 2.71 days for non-late orders. This indicates that late orders took approximately 1.36 additional days on average.
+
+Late orders exceeded their scheduled shipping duration by an average of 1.61 days, while non-late orders were delivered approximately 0.84 days before their scheduled duration.
+
+These findings highlight a relationship between longer delivery duration and late delivery status. Further investigation of regional performance, shipping modes, and order processing stages is required to identify potential causes and improvement opportunities.
+
+### 16. Delivery Performance Optimization – Root Cause Analysis
+
+#### Objective
+To identify the major factors associated with late deliveries and recommend practical improvements.
+
+#### 1. Shipping Mode Analysis
+
+- First Class recorded a 100% late delivery rate across all markets.
+- Second Class recorded approximately 79–81% late deliveries.
+- Same Day recorded approximately 46–50% late deliveries.
+- Standard Class recorded approximately 38–41% late deliveries.
+
+**Finding:** First Class and Second Class show consistently high late delivery rates across all markets. Their service-level configuration and delivery performance require investigation.
+
+#### 2. Delivery Time Analysis
+
+- Average actual delivery time for late orders was 4.06 days.
+- Average scheduled delivery time was 2.46 days.
+- Late orders exceeded the scheduled delivery duration by approximately 1.60 days.
+
+**Finding:** Actual delivery duration frequently exceeds the promised schedule for late orders.
+
+#### 3. Regional Analysis
+
+- South of USA recorded the highest late delivery rate at 61.23%.
+- South Asia recorded 60.16%.
+- West Africa recorded the lowest rate at 52.98%.
+
+**Finding:** Delivery delays occur across all regions, but some regions experience higher late delivery rates.
+
+#### 4. Product Category Analysis
+
+- Sporting Goods recorded a 62.58% late delivery rate.
+- Health and Beauty recorded 62.07%.
+- Women's Clothing recorded 61.97%.
+- Cleats contributed 5,165 late orders due to its high order volume.
+
+**Finding:** Some product categories show higher late delivery rates and require further monitoring.
+
+#### 5. Recommendations
+
+1. Review First Class and Second Class shipping service performance.
+2. Reassess delivery commitments using historical delivery-time data.
+3. Monitor regional delivery performance and investigate high-delay regions.
+4. Track high-volume product categories for recurring delivery issues.
+5. Regularly monitor late delivery rates by shipping mode, market, and region.
+6. Investigate delayed orders and take corrective action before the promised delivery date.
+
+#### 6. Conclusion
+
+Shipping mode performance and delivery schedule mismatches are the strongest observed areas associated with late deliveries. Regional and product-category variations also provide useful signals for further investigation.
+
+The recommendations focus on improving delivery planning, reviewing shipping service performance, and monitoring operational delays.
+
+**Limitation:** The available dataset does not directly establish causes such as traffic, weather, warehouse staffing, inventory shortages, or individual carrier failures. These factors require further operational investigation.
