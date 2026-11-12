@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="ecommerce_logistics.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="8529"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="ecommerce_logistics_cleaned" custom_title="0" dock_id="3" table="4,27:mainecommerce_logistics_cleaned"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000003fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500330100000000ffffffff0000011800ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">SELECT name FROM pragma_table_info('ecommerce_logistics_cleaned');
+SELECT order_year,
+       COUNT(DISTINCT &quot;Order Id&quot;) AS orders,
+       ROUND(SUM(&quot;Sales&quot;)) AS sales,
+       ROUND(SUM(&quot;Sales&quot;)*1.0/COUNT(DISTINCT &quot;Order Id&quot;),2) AS avg_order_value,
+       ROUND(COUNT(*)*1.0/COUNT(DISTINCT &quot;Order Id&quot;),2) AS items_per_order
+FROM ecommerce_logistics_cleaned
+WHERE order_year &lt;= 2017
+GROUP BY order_year
+ORDER BY order_year;
+
+SELECT order_year,
+       CASE WHEN CAST(strftime('%m', &quot;order date (DateOrders)&quot;) AS INT) &gt;= 10 THEN 'Oct-Dec' ELSE 'Jan-Sep' END AS period,
+       COUNT(DISTINCT &quot;Order Id&quot;) AS orders,
+       ROUND(SUM(&quot;Sales&quot;)) AS sales,
+       ROUND(SUM(&quot;Sales&quot;)*1.0/COUNT(DISTINCT &quot;Order Id&quot;)) AS avg_order_value
+FROM ecommerce_logistics_cleaned
+WHERE order_year IN (2016, 2017)
+GROUP BY order_year, period
+ORDER BY period, order_year;
+
+SELECT strftime('%m', &quot;order date (DateOrders)&quot;) AS month,
+       COUNT(DISTINCT &quot;Order Id&quot;) AS orders,
+       ROUND(SUM(&quot;Sales&quot;)) AS sales,
+       ROUND(COUNT(*)*1.0/COUNT(DISTINCT &quot;Order Id&quot;),2) AS items_per_order
+FROM ecommerce_logistics_cleaned
+WHERE order_year = 2017
+GROUP BY month
+ORDER BY month;
+
+SELECT date(&quot;order date (DateOrders)&quot;) AS day,
+       COUNT(DISTINCT &quot;Order Id&quot;) AS orders,
+       ROUND(COUNT(*)*1.0/COUNT(DISTINCT &quot;Order Id&quot;),2) AS items_per_order
+FROM ecommerce_logistics_cleaned
+WHERE &quot;order date (DateOrders)&quot; &gt;= '2017-09-29' AND &quot;order date (DateOrders)&quot; &lt; '2017-10-07'
+GROUP BY day
+ORDER BY day;
+
+SELECT CASE WHEN &quot;order date (DateOrders)&quot; &lt; '2017-10-03' THEN 'before' ELSE 'after' END AS phase,
+       COUNT(DISTINCT &quot;Order Id&quot;) AS orders,
+       ROUND(AVG(&quot;Order Item Quantity&quot;),2) AS avg_units,
+       ROUND(AVG(&quot;Order Item Discount Rate&quot;),3) AS avg_discount,
+       ROUND(100.0*AVG(is_cancelled),2) AS cancelled_pct,
+       ROUND(100.0*AVG(CASE WHEN &quot;Shipping Mode&quot;='Standard Class' THEN 1.0 ELSE 0 END),1) AS standard_ship_pct
+FROM ecommerce_logistics_cleaned
+WHERE order_year &lt;= 2017
+GROUP BY phase;
+
+SELECT order_year,
+       COUNT(*) AS orders,
+       ROUND(100.0*AVG(CASE WHEN n = 1 THEN 1.0 ELSE 0 END),1) AS single_item_pct,
+       ROUND(AVG(n),2) AS avg_items
+FROM (SELECT &quot;Order Id&quot;, MIN(order_year) AS order_year, COUNT(*) AS n
+      FROM ecommerce_logistics_cleaned
+      WHERE order_year &lt;= 2017
+      GROUP BY &quot;Order Id&quot;)
+GROUP BY order_year
+ORDER BY order_year;
+
+SELECT order_year,
+       COUNT(DISTINCT &quot;Customer Id&quot;) AS customers,
+       ROUND(COUNT(DISTINCT &quot;Order Id&quot;)*1.0/COUNT(DISTINCT &quot;Customer Id&quot;),2) AS orders_per_customer
+FROM ecommerce_logistics_cleaned
+WHERE order_year &lt;= 2017
+GROUP BY order_year
+ORDER BY order_year;
+
+SELECT COUNT(DISTINCT &quot;Customer Id&quot;) AS customers_after_break,
+       COUNT(DISTINCT CASE WHEN &quot;Customer Id&quot; IN
+            (SELECT &quot;Customer Id&quot; FROM ecommerce_logistics_cleaned WHERE &quot;order date (DateOrders)&quot; &lt; '2017-10-03')
+            THEN &quot;Customer Id&quot; END) AS also_ordered_before
+FROM ecommerce_logistics_cleaned
+WHERE &quot;order date (DateOrders)&quot; &gt;= '2017-10-03' AND order_year &lt;= 2017;
+
+SELECT &quot;Department Name&quot; AS department,
+       ROUND(SUM(CASE WHEN order_year = 2016 THEN &quot;Sales&quot; ELSE 0 END)) AS sales_2016,
+       ROUND(SUM(CASE WHEN order_year = 2017 THEN &quot;Sales&quot; ELSE 0 END)) AS sales_2017,
+       ROUND(SUM(CASE WHEN order_year = 2017 THEN &quot;Sales&quot; ELSE 0 END)
+           - SUM(CASE WHEN order_year = 2016 THEN &quot;Sales&quot; ELSE 0 END)) AS change
+FROM ecommerce_logistics_cleaned
+GROUP BY &quot;Department Name&quot;
+ORDER BY change;
+
+SELECT COUNT(DISTINCT &quot;Order Id&quot;) AS orders_q4_2017,
+       ROUND(SUM(&quot;Sales&quot;)) AS actual_sales,
+       ROUND(COUNT(DISTINCT &quot;Order Id&quot;) * (SELECT SUM(&quot;Sales&quot;)*1.0/COUNT(DISTINCT &quot;Order Id&quot;)
+              FROM ecommerce_logistics_cleaned
+              WHERE &quot;order date (DateOrders)&quot; &gt;= '2016-10-01' AND &quot;order date (DateOrders)&quot; &lt; '2017-01-01')) AS if_order_value_held,
+       ROUND(COUNT(DISTINCT &quot;Order Id&quot;) * (SELECT SUM(&quot;Sales&quot;)*1.0/COUNT(DISTINCT &quot;Order Id&quot;)
+              FROM ecommerce_logistics_cleaned
+              WHERE &quot;order date (DateOrders)&quot; &gt;= '2016-10-01' AND &quot;order date (DateOrders)&quot; &lt; '2017-01-01')) - ROUND(SUM(&quot;Sales&quot;)) AS gap
+FROM ecommerce_logistics_cleaned
+WHERE &quot;order date (DateOrders)&quot; &gt;= '2017-10-01' AND &quot;order date (DateOrders)&quot; &lt; '2018-01-01';
+
+SELECT a.&quot;Product Name&quot; AS item_1, b.&quot;Product Name&quot; AS item_2, COUNT(*) AS orders_together
+FROM ecommerce_logistics_cleaned a
+JOIN ecommerce_logistics_cleaned b
+  ON a.&quot;Order Id&quot; = b.&quot;Order Id&quot; AND a.&quot;Product Card Id&quot; &lt; b.&quot;Product Card Id&quot;
+WHERE a.&quot;order date (DateOrders)&quot; &lt; '2017-10-03'
+GROUP BY item_1, item_2
+ORDER BY orders_together DESC
+LIMIT 8;
+
+SELECT COUNT(*) AS first_time_buyers_to_target
+FROM (SELECT &quot;Customer Id&quot;
+      FROM ecommerce_logistics_cleaned
+      WHERE &quot;order date (DateOrders)&quot; &gt;= '2017-10-03'
+      GROUP BY &quot;Customer Id&quot;
+      HAVING COUNT(DISTINCT &quot;Order Id&quot;) = 1);
+SELECT
+    order_year,
+    COUNT(DISTINCT &quot;Order Id&quot;) AS total_orders,
+    COUNT(*) AS total_order_lines,
+    ROUND(
+        COUNT(*) * 1.0 / COUNT(DISTINCT &quot;Order Id&quot;),
+        2
+    ) AS avg_order_lines_per_order
+FROM ecommerce_logistics_cleaned
+WHERE order_year IN (2016, 2017)
+GROUP BY order_year
+ORDER BY order_year;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
