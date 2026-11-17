@@ -7,7 +7,7 @@
 
 **Integrated Business Intelligence and Data Analytics Project**
 
-An end-to-end analytics project on the DataCo Smart Supply Chain dataset. It covers data cleaning, data modelling, exploratory analysis, SQL investigation and an interactive Power BI dashboard, and it answers three connected business problems:
+An end-to-end analytics project on the DataCo Smart Supply Chain dataset(ecoomerce logistics). It covers data cleaning, data modelling, exploratory analysis, SQL investigation and an interactive Power BI dashboard, and it answers three connected business problems:
 
 1. **Sales and order-line decline in 2017**: why did recorded sales fall even though distinct orders increased?
 2. **Late deliveries**: where are delays concentrated, and how reliable is the delivery data?
@@ -238,6 +238,66 @@ Four pages with slicers for **Year, Month, Customer Segment and Shipping Mode**.
 | Product Performance | Top products, profit and sales by category, sales vs profit |
 
 **Headline KPIs:** Total sales **36.78M** | Total profit **3.97M** | Average order value **559.45** | Customers **21K** | Orders **66K**
+## Power BI Dashboard & Business Insights
+
+Developed an interactive Power BI report to present business performance, delivery operations, customer behaviour and product performance. The report consists of four dashboard pages with interactive filters, KPIs and visualizations.
+
+### 1. Executive Overview
+
+Provides a consolidated view of overall business performance, including sales, orders, profit, customer activity and delivery status.
+
+**Key Visualizations:**
+- Monthly Sales Trend
+- Sales by Customer Segment
+- Sales by Product Category
+- Orders by Delivery Status
+
+![Executive Overview](Dashboards/Executive%20overview.png)
+
+### 2. Delivery & Logistics
+
+Analyses shipping operations and delivery performance to identify delivery patterns across shipping modes and geographical regions.
+
+**Key Visualizations:**
+- Shipping Mode Performance
+- Late Orders by Region
+- Average Shipping Days by Mode
+- Delivery Status Distribution
+
+**Key Finding:** The overall late delivery rate was 57.42% across eligible orders.
+
+![Delivery and Logistics](Dashboards/Delivery%20Logistics.png)
+
+### 3. Customer Insights
+
+Provides insights into customer segments, regional sales distribution and customer contributions to overall business performance.
+
+**Key Visualizations:**
+- Sales by Customer Segment
+- Sales by Order Region
+- Top 10 Customers by Sales
+- Orders by Customer Segment
+
+![Customer Insights](Dashboards/Customer%20insights.png)
+
+### 4. Product Performance
+
+Evaluates product and category-level performance by comparing sales, profitability and product contributions.
+
+**Key Visualizations:**
+- Top 10 Products by Sales
+- Profit by Product Category
+- Sales by Product Category
+- Product Sales vs Profit
+
+![Product Performance](Dashboards/Product%20performance.png)
+
+### Interactive Dashboard Features
+
+- Year and month filters for time-based analysis.
+- Customer segment and shipping mode filters.
+- Interactive charts and cross-filtering.
+- Navigation between all four dashboard pages.
 
 ---
 
